@@ -1,15 +1,20 @@
 from fastapi import APIRouter
+from model import Todo
 
 router = APIRouter()
 
-@router.get("/hello")
-async def hello():
+todo_list  = []
+
+@router.post("/todo")
+async def add_todo(todo: Todo):
+    todo_list.append(todo)
+
     return {
-        "message" : "hello"
+        "message" : "success"
     }
 
-@router.get("/hello2")
-async def hello2():
+@router.get("/todo")
+async def get_todo():
     return {
-        "message":"hello2"
+        "todo_list" : todo_list
     }
