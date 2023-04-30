@@ -1,4 +1,3 @@
-from typing import Union
 from fastapi import APIRouter
 
 router2 = APIRouter()
@@ -10,7 +9,7 @@ async def path(id: str):
     }
 
 @router2.get("/query")
-async def query(search: str, size: int = 10, page: Union[int, None] = None):
+async def query(search: str, size: int = 10, page: int | None = None):
     # search - 필수값 / size - default=10 / page - null 가능
     return {
         "search" : search,
