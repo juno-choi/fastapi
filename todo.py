@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 from model import Todo, TodoItem, TodoItems
 
 router = APIRouter()
@@ -24,3 +24,15 @@ async def todo_items():
     return {
         "todos" : todo_list
     }
+
+@router.get("/todo/{todo_id}")
+async def get_todo(todo_id: int):
+    for todo in todo_list:
+        if todo.id == todo_id:
+            return {
+                "todo" : todo
+            }
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail="not found todo id"
+    )
